@@ -1,16 +1,18 @@
 {
   "manifest_version": 2,
 
-  "name": "Hello Extensions",
-  "description": "Basic google chrome extension. Get things on the page etc...",
+  "name": "Time-waster tracker",
+  "description": "Tracks how much time do you waste your sepcified website(s)",
   "version": "1.0",
+ 
 
   "browser_action": {
-    "default_title": "Just Testing it out",
+    "default_title": "Track This site?",
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
   "permissions": [
+    "tabs",
     "activeTab",
     "https://ajax.googleapis.com/"
   ]

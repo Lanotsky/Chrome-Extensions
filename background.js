@@ -1,3 +1,7 @@
+chrome.browserAction.onClicked.addListener(function(tab) {
+	console.log("browser clicked");
+})
+
 // Clock and stopwatch here
 
 // gets the url of the active tab
@@ -27,7 +31,7 @@ function printStopWatch(seconds){
 
 var interval = 1000; // ms
 var expected = Date.now() + interval;
-setTimeout(step, interval);
+// setTimeout(step, interval);
 function step() {
     var dt = Date.now() - expected; // the drift (positive for overshooting)
     if (dt > interval) {
@@ -35,7 +39,6 @@ function step() {
         // possibly special handling to avoid futile "catch up" run
     }
 	 // do what is to be done
-
 	expected += interval;
 	printStopWatch(sec++)
 	setTimeout(step, Math.max(0, interval - dt)); // take into account drift
@@ -43,3 +46,5 @@ function step() {
 }
 
 // step()
+
+console.log("confirm bacground.js")

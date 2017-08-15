@@ -6,7 +6,7 @@ function createAlarm() {
       day += 1;
   }
   // '+' casts the date to a number, like [object Date].getTime();
-  var timestamp = +new Date(now.getFullYear(), now.getMonth(), day, 3, 0, 0, 0);
+  var timestamp = +new Date(now.getFullYear(), now.getMonth(), day, 24, 0, 0, 0);
   //                        YYYY               MM              DD  HH MM SS MS
 
   // Create
@@ -22,3 +22,4 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
   }
 });
 createAlarm();
+console.log("alarm was here")

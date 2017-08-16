@@ -1,25 +1,29 @@
+// Note: Months and Day of the week are counted from zero
 function createAlarm() {
   var now = new Date();
   var day = now.getDate();
-  if (now.getHours() >= 24) {
-      // 12 AM already passed
+  if (now.getHours() >= 6) {
+      // 6 AM already passed
       day += 1;
   }
+  // Sets the alarm time
   // '+' casts the date to a number, like [object Date].getTime();
-  var timestamp = +new Date(now.getFullYear(), now.getMonth(), day, 24, 0, 0, 0);
+  var timestamp = +new Date(now.getFullYear(), now.getMonth(), day, 6, 0, 0, 0);
   //                        YYYY               MM              DD  HH MM SS MS
 
-  // Create
-  chrome.alarms.create('12AMyet', {
+  // Create the alarm
+  chrome.alarms.create('6AMyet', {
       when: timestamp
   });
 }
 
 // Listen
 chrome.alarms.onAlarm.addListener(function(alarm) {
-  if (alarm.name === '12AMyet') {
+  if (alarm.name === '6AMyet') {
+    console.log("Alarm Is Ringing");
       // Whatever you want
+      // Make a call to popup.js
+      chrome.runtime.sendMessage({message:"Alarm Is Ringing"})
   }
 });
 createAlarm();
-console.log("alarm was here")

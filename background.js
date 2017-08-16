@@ -1,29 +1,26 @@
 // Note: Months and Day of the week are counted from zero
 function createAlarm() {
-  var now = new Date();
-  var day = now.getDate();
-  if (now.getHours() >= 6) {
-      // 6 AM already passed
-      day += 1;
-  }
-  // Sets the alarm time
-  // '+' casts the date to a number, like [object Date].getTime();
-  var timestamp = +new Date(now.getFullYear(), now.getMonth(), day, 6, 0, 0, 0);
-  //                        YYYY               MM              DD  HH MM SS MS
-
-  // Create the alarm
-  chrome.alarms.create('6AMyet', {
-      when: timestamp
+  chrome.alarms.create('10pmAlarm', {
+    when: 1502892000, // Timestamp in miliseconds pointing to 10pm 8/16/2017
+    periodInMinutes: 1440 // Will keep firing every day at 10pm
   });
 }
 
 // Listen
 chrome.alarms.onAlarm.addListener(function(alarm) {
-  if (alarm.name === '6AMyet') {
+  if (alarm.name === '10pmAlarm') {
     console.log("Alarm Is Ringing");
       // Whatever you want
       // Make a call to popup.js
-      chrome.runtime.sendMessage({message:"Alarm Is Ringing"})
+      chrome.extension.onConnect.addListener(function(port) {
+        console.log("Connected .....");
+        port.onMessage.addListener(function(msg) {
+             console.log("message recieved" + msg);
+             port.postMessage("Alarm Is Ringing");
+        });
+    })
   }
 });
 createAlarm();
+
+// Connects to popup.js

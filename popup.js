@@ -30,15 +30,17 @@ function clearHistory(){
 
 }
 
-var callback = function (message, sender, sendResponse) {
-  if(message=="Alarm Is Ringing"){
-    sendResponse();
+
+var port = chrome.extension.connect({
+  name: "Sample Communication"
+});
+
+// Connects to background.js
+port.postMessage("Hi BackGround");
+port.onMessage.addListener(function(msg) {
+  if(msg == "Alarm Is Ringing"){
+    console.log("Msg from background recieved -->"+msg)
+    clearHistory()
   }
-}
-
-chrome.runtime.onMessage.addListener(callback(msg, sender, function(){
-  console.log("response sent form popup.js")
-  clearHistory()
-}))
-
-
+  
+});

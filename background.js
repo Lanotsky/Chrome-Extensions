@@ -1,17 +1,16 @@
+const minutesTil10pm = 1320
 const millisecondsPerDay = 1000 * 60 * 60 * 24
 //                         ms   sec   min  hrs
-const minutesTil10pm = ((1000 * 60 * 60 * 22)/60)/60
-
 var callback = function () {
     //document.getElementById("status").innerHTML = "History Cleared for the day"
     console.log("History cleared")
-};
+}
 
 // Clears History for the past 24 hrs
 function clearHistory(){
-  var oneDayAgo = (new Date()).getTime() - millisecondsPerDay;
+  var timeFrame = (new Date()).getTime() - millisecondsPerDay
   chrome.browsingData.remove({
-    "since": oneDayAgo
+    "since": timeFrame
   }, {
     "appcache": true,
     "cache": true,
@@ -25,34 +24,49 @@ function clearHistory(){
     "pluginData": true,
     "passwords": true,
     "webSQL": true
-  }, callback);
+  }, callback)
 
 }
 
-// Note: Months and Day of the week are counted from zero
-function createAlarm() {
-  chrome.alarms.create('10pmAlarm', {
-    // when: 1502892000, // Timestamp in miliseconds pointing to 10pm 8/16/2017
+chrome.alarms.create('10pmAlarm', {
     delayInMinutes: minutesTil10pm,
     periodInMinutes: 1440 // Will keep firing every day at 10pm
-  });
-}
+})
 
-// Listen
 chrome.alarms.onAlarm.addListener(function(alarm) {
   if (alarm.name === '10pmAlarm') {
-    console.log("Alarm Is Ringing");
+    console.log("Alarm Is Ringing")
+      // Whatever you want
+      clearHistory()
+  }
+})
+
+// Listen
+// One way communication
+/*
+chrome.alarms.onAlarm.addListener(function(alarm) {
+  if (alarm.name === '10pmAlarm') {
+    console.log("Alarm Is Ringing")
       // Whatever you want
       clearHistory()
       chrome.extension.onConnect.addListener(function(port) {
-        console.log("Connected .....");
+        console.log("Connected .....")
         port.onMessage.addListener(function(msg) {
-             console.log("message recieved" + msg);
-             port.postMessage("Alarm Is Ringing");
-        });
+             console.log("message recieved" + msg)
+             port.postMessage("Alarm Is Ringing")
+        })
     })
   }
-});
-createAlarm();
+})
+*/
 
-// Connects to popup.js
+
+chrome.runtime.onConnect.addListener(function(port) {
+  console.assert(port.name == "ui")
+  port.onMessage.addListener(function(msg) {
+    console.log("from popup -> " + msg.order)
+   port.postMessage({response: "connection established"})
+
+  })
+
+})

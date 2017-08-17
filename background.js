@@ -29,14 +29,13 @@ function clearHistory(){
 }
 
 chrome.alarms.create('10pmAlarm', {
-    delayInMinutes: minutesTil10pm,
+    delayInMinutes: 10,
     periodInMinutes: 1440 // Will keep firing every day at 10pm
 })
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
   if (alarm.name === '10pmAlarm') {
     console.log("Alarm Is Ringing")
-      // Whatever you want
       clearHistory()
   }
 })
@@ -59,6 +58,10 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
   }
 })
 */
+
+var onClickAction = function(){
+  console.log("Action taken")
+}
 
 
 chrome.runtime.onConnect.addListener(function(port) {

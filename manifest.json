@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Auto Clear History",
     "version": "0.0.1",
-    "description": "Clears Browser History for the last 24 hours every 10pm",
+    "description": "Clears Browser History for the last 24 hours every 9am",
     "icons": {
         "16": "16-Icon.png",
         "48": "48-Icon.png",
@@ -17,7 +17,7 @@
     },
     "background": {
         "scripts": ["background.js"],
-        "persistent": false
+        "persistent": true
     },    
     "permissions": [
     "activeTab",

@@ -1,16 +1,13 @@
 const minutesTil10pm = 1320
 const millisecondsPerDay = 1000 * 60 * 60 * 24
-//                         ms   sec   min  hrs
 var callback = function () {
-    //document.getElementById("status").innerHTML = "History Cleared for the day"
-    console.log("History cleared")
+
 }
 
-// Clears History for the past 24 hrs
 function clearHistory(){
-  var timeFrame = (new Date()).getTime() - millisecondsPerDay
+  var last24hrs = (new Date()).getTime() - millisecondsPerDay
   chrome.browsingData.remove({
-    "since": timeFrame
+    "since": last24hrs
   }, {
     "appcache": true,
     "cache": true,
@@ -29,8 +26,8 @@ function clearHistory(){
 }
 
 chrome.alarms.create('10pmAlarm', {
-    delayInMinutes: 10,
-    periodInMinutes: 1440 // Will keep firing every day at 10pm
+    delayInMinutes: 1,
+    periodInMinutes:  1440 // Will keep firing every day every 1440 minutes
 })
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
@@ -39,30 +36,10 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
       clearHistory()
   }
 })
-
-// Listen
-// One way communication
-/*
-chrome.alarms.onAlarm.addListener(function(alarm) {
-  if (alarm.name === '10pmAlarm') {
-    console.log("Alarm Is Ringing")
-      // Whatever you want
-      clearHistory()
-      chrome.extension.onConnect.addListener(function(port) {
-        console.log("Connected .....")
-        port.onMessage.addListener(function(msg) {
-             console.log("message recieved" + msg)
-             port.postMessage("Alarm Is Ringing")
-        })
-    })
-  }
-})
-*/
 
 var onClickAction = function(){
   console.log("Action taken")
 }
-
 
 chrome.runtime.onConnect.addListener(function(port) {
   console.assert(port.name == "ui")

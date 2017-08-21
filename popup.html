@@ -7,7 +7,28 @@
         <link rel="stylesheet" href="tools\bootstrap\bootstrap.min.css">
     </head>
     <body>
-        <button type="button" class="btn btn-primary">Primary</button>
+        <div class="card">
+            <div class="card-block text-nowrap">
+              <p class="font-weight-normal">At 10pm all browsing history will be deleted for the past 24 hours</p>
+              <p class="font-weight-normal">Deleted data will include the following:</p>
+                <!--Description etc-->
+                <ul class="list-group">
+                    <li class="list-group-item">appcache</li>
+                    <li class="list-group-item">cache</li>
+                    <li class="list-group-item">cookies</li>
+                    <li class="list-group-item">downloads</li>
+                    <li class="list-group-item">file Systems</li>
+                    <li class="list-group-item">formData</li>
+                    <li class="list-group-item">history</li>
+                    <li class="list-group-item">indexedDB</li>
+                    <li class="list-group-item">localStorage</li>
+                    <li class="list-group-item">pluginData</li>
+                    <li class="list-group-item">passwords</li>
+                    <li class="list-group-item">webSQL</li>
+                </ul>
+            </div>
+                <button id="gotIt" type="button" class="btn btn-success btn-sm">Got it</button>
+        </div>
     </body>
     <script src="Tools\jquery\jquery-3.2.1.slim.min.js"></script>
     <script src="Tools\bootstrap\bootstrap.min.js"></script>

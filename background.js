@@ -1,5 +1,8 @@
 const minutesTil10pm = 1320
 const millisecondsPerDay = 1000 * 60 * 60 * 24
+var hour = 22
+var alarmTime = new Date((new Date).getFullYear(), (new Date).getMonth(), (new Date).getDate(), hour)
+
 var callback = function () {
 
 }
@@ -26,7 +29,7 @@ function clearHistory(){
 }
 
 chrome.alarms.create('10pmAlarm', {
-    delayInMinutes: 1,
+    when: alarmTime.getTime() ,
     periodInMinutes:  1440 // Will keep firing every day every 1440 minutes
 })
 
@@ -40,11 +43,12 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 var onClickAction = function(){
   console.log("Action taken")
 }
-
+// establish long lived connection
 chrome.runtime.onConnect.addListener(function(port) {
   console.assert(port.name == "ui")
   port.onMessage.addListener(function(msg) {
-    console.log("from popup -> " + msg.order)
+    console.log("message received sucessully")
+    console.log("message received: " + msg.order)
    port.postMessage({response: "connection established"})
 
   })

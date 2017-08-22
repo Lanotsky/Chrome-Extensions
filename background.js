@@ -4,7 +4,8 @@ var hour = 22
 var alarmTime = new Date((new Date).getFullYear(), (new Date).getMonth(), (new Date).getDate(), hour)
 
 var callback = function () {
-
+  var today = new Date((new Date).getFullYear(), (new Date).getMonth(), (new Date).getDate(), (new Date).getHours())
+  console.long("History cleared at: ")
 }
 
 function clearHistory(){

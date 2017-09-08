@@ -1,11 +1,11 @@
 const minutesTil10pm = 1320
 const millisecondsPerDay = 1000 * 60 * 60 * 24
-var hour = 22
-var alarmTime = new Date((new Date).getFullYear(), (new Date).getMonth(), (new Date).getDate(), hour)
+var alarmTime = new Date((new Date).getFullYear(), (new Date).getMonth(), (new Date).getDate(), 22)
+console.log(alarmTime.getTime())
 
 var callback = function () {
   var today = new Date((new Date).getFullYear(), (new Date).getMonth(), (new Date).getDate(), (new Date).getHours())
-  console.long("History cleared at: ")
+  console.log("History cleared at: " + today)
 }
 
 function clearHistory(){
@@ -49,7 +49,8 @@ chrome.runtime.onConnect.addListener(function(port) {
   console.assert(port.name == "ui")
   port.onMessage.addListener(function(msg) {
     console.log("message received sucessully")
-    console.log("message received: " + msg.order)
+    // console.log("message received: " + msg.order)
+   if (msg.order === "clear now") { clearHistory() }
    port.postMessage({response: "connection established"})
 
   })

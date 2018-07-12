@@ -1,15 +1,17 @@
-const minutesTil10pm = 1320
+// const minutesTil10pm = 1320
 const millisecondsPerDay = 1000 * 60 * 60 * 24
-var alarmTime = new Date((new Date).getFullYear(), (new Date).getMonth(), (new Date).getDate(), 22)
-console.log(alarmTime.getTime())
-
-var callback = function () {
-  var today = new Date((new Date).getFullYear(), (new Date).getMonth(), (new Date).getDate(), (new Date).getHours())
-  console.log("History cleared at: " + today)
+const minutesPerDay = 1440;
+let Hour = 18; // variable
+let Minutes = 0; // variable
+let alarmTime = new Date((new Date).getFullYear(), (new Date).getMonth(), (new Date).getDate(), Hour, Minutes); // 1800 is 6pm
+console.log(`alarm will fire at: ${alarmTime}`);
+let callback = function () {
+  let today = new Date();
+  alert(`History cleard at ${today}`);
 }
 
-function clearHistory(){
-  var last24hrs = (new Date()).getTime() - millisecondsPerDay
+const clearHistory = ()=>{
+  let last24hrs = (new Date()).getTime() - millisecondsPerDay
   chrome.browsingData.remove({
     "since": last24hrs
   }, {
@@ -22,15 +24,15 @@ function clearHistory(){
     "history": true,
     "indexedDB": true,
     "localStorage": true,
-    "pluginData": true,
-    "passwords": true,
-    "webSQL": true
+    // "pluginData": true,
+    "passwords": true
+    // "webSQL": true
   }, callback)
 
 }
 
 chrome.alarms.create('10pmAlarm', {
-    when: alarmTime.getTime() ,
+    when: alarmTime.getTime(),
     periodInMinutes:  1440 // Will keep firing every day every 1440 minutes
 })
 
@@ -41,7 +43,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
   }
 })
 
-var onClickAction = function(){
+const onClickAction = ()=>{
   console.log("Action taken")
 }
 // establish long lived connection

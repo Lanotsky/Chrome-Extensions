@@ -22,6 +22,7 @@ function clearNow(){
 $(document).ready(function(){
   $("#clearNow").click(function(){
     clearNow()
+    window.close();
   })
 })
 

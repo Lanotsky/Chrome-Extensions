@@ -1,23 +1,22 @@
 {
     "manifest_version": 2,
-    "name": "Auto Clear History",
+    "name": "Housekeeper",
     "version": "0.0.1",
-    "description": "Clears Browser History for the last 24 hours every 9am",
+    "description": "",
     "icons": {
-        "16": "16-Icon.png",
-        "48": "48-Icon.png",
-        "128": "128-Icon.png"
+        "16":  "broom-48.png",
+        "48": "broom-48.png",
+        "128": "broom-48.png" 
     },
     "browser_action": {
         "default_icon": {                    
-            "32": "browser-Icon-later.png"            
+            "32": "broom-48.png"            
         },
         "default_title": "View links",     
         "default_popup": "popup.html"        
     },
     "background": {
-        "scripts": ["background.js"],
-        "persistent": true
+        "scripts": ["background.js"]
     },    
     "permissions": [
     "activeTab",

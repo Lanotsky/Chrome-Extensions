@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Housekeeper",
-    "version": "0.0.1",
+    "version": "0.5",
     "description": "",
     "icons": {
         "16":  "broom-48.png",
@@ -23,5 +23,14 @@
     "alarms",
     "browsingData",
     "tabs"
-    ]
+    ],
+    "commands": {
+        "_execute_browser_action": {
+          "suggested_key": {
+            "windows": "Alt+Shift+W",
+            "mac": "Alt+Shift+W"
+          },
+          "description": "cache-clean"
+        }   
+    }
 }

@@ -31,10 +31,6 @@ const clearHistory = ()=>{
 
 }
 
-chrome.alarms.create('10pmAlarm', {
-    when: alarmTime.getTime(),
-    periodInMinutes:  1440 // Will keep firing every day every 1440 minutes
-})
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
   if (alarm.name === '10pmAlarm') {
@@ -46,7 +42,23 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 const onClickAction = ()=>{
   console.log("Action taken")
 }
-// establish long lived connection
+
+chrome.runtime.onInstalled.addListener(()=>{
+  chrome.alarms.create('10pmAlarm', {
+    when: alarmTime.getTime(),
+    periodInMinutes:  1440 // Will keep firing every day every 1440 minutes
+  })
+
+  chrome.alarms.onAlarm.addListener(function(alarm) {
+    if (alarm.name === '10pmAlarm') {
+      console.log("Alarm Is Ringing")
+        clearHistory()
+    }
+  });
+
+})
+
+// establish long lived connection with the popup.js
 chrome.runtime.onConnect.addListener(function(port) {
   console.assert(port.name == "ui")
   port.onMessage.addListener(function(msg) {
@@ -54,7 +66,5 @@ chrome.runtime.onConnect.addListener(function(port) {
     // console.log("message received: " + msg.order)
    if (msg.order === "clear now") { clearHistory() }
    port.postMessage({response: "connection established"})
-
   })
-
 })

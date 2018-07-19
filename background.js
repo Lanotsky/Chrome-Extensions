@@ -46,7 +46,7 @@ const onClickAction = ()=>{
 chrome.runtime.onInstalled.addListener(()=>{
   chrome.alarms.create('10pmAlarm', {
     when: alarmTime.getTime(),
-    periodInMinutes:  1440 // Will keep firing every day every 1440 minutes
+    // periodInMinutes:  1440 // Will keep firing every day every 1440 minutes
   })
 
   chrome.alarms.onAlarm.addListener(function(alarm) {

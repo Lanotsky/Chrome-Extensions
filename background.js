@@ -7,7 +7,7 @@ let alarmTime = new Date((new Date).getFullYear(), (new Date).getMonth(), (new D
 console.log(`alarm will fire at: ${alarmTime}`);
 let callback = function () {
   let today = new Date();
-  alert(`History cleard at ${today}`);
+  console.log(`Cache ceared at ${today}`);
 }
 
 const clearHistory = ()=>{
@@ -36,7 +36,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
   if (alarm.name === '10pmAlarm') {
     console.log("Alarm Is Ringing")
       clearHistory()
-  }
+  } 
 })
 
 const onClickAction = ()=>{
